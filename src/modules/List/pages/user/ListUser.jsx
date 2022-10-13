@@ -22,26 +22,18 @@ const ListUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { users } = useSelector((state) => state.user);
-  // console.log(users[0]);
   const dispatch = useDispatch();
-  // console.log(projects)
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-//  const reUser = users?.reverse()
+
    const userz = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    // const user = JSON.parse(localStorage.getItem("user"));
     dispatch(getAllUser());
   }, []);
   const handleDelte = (userId)=>{
-    // console.log(userz.accessToken)
-      console.log(userId)
       dispatch(deleteUser({userId:userId,acc:userz.accessToken}))
   }
   const handleSelect = (user)=>{
     localStorage.setItem("userdetail", JSON.stringify(user));
-    // dispatch(getdetailUser(user ))
-    // console.log(user.userId)   
      navigate(`/user/${user.userId}`)
   }
 

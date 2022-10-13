@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import AuthLayout from "components/AuthLayout";
-import CheckAccount from "routes/CheckAccount";
 
 const Login = lazy(() => import("modules/Authentication/pages/Login"));
 const Register = lazy(() => import("modules/Authentication/pages/Register"));

@@ -79,45 +79,31 @@ const taskAPI = {
       },
     });
   },
-  deleteComment : (commentId, acces) =>{
-    return axiosClient.delete("Comment/deleteComment",{
+  deleteComment: (commentId, acces) => {
+    return axiosClient.delete("Comment/deleteComment", {
       headers: {
         Authorization: `Bearer ${acces}`,
       },
       params: {
         idComment: commentId,
       },
-    })
+    });
   },
 
-
-
-  // updateComment:(commentId, comment,acces)=>{
-  //   console.log(commentId,comment,acces);
-  //   return axiosClient.put(`Comment/updateComment?id=${commentId}&contentComment=${comment}`,{
-  //     headers: {
-  //       Authorization: `Bearer ${acces}`,
-  //     }
-      
-      
-  //   })
-  // }
-  updateComment:(commentId, comment,acces)=>{
-    console.log(commentId,comment,acces);
-    return axiosClient.put(`Comment/updateComment`,{contentComment:comment},{
-      headers: {
-        Authorization: `Bearer ${acces}`,
-      },
-      params: {
-        id: commentId,
-        contentComment:comment
-
-      },
-      
-      
-    })
-  }
-}
-;
-
+  updateComment: (commentId, comment, acces) => {
+    return axiosClient.put(
+      `Comment/updateComment`,
+      { contentComment: comment },
+      {
+        headers: {
+          Authorization: `Bearer ${acces}`,
+        },
+        params: {
+          id: commentId,
+          contentComment: comment,
+        },
+      }
+    );
+  },
+};
 export default taskAPI;

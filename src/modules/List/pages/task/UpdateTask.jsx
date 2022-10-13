@@ -31,7 +31,6 @@ const CreateTask = () => {
     getalltas,
   } = useSelector((state) => state.task);
   const taskIds = taskss.id;
-  // console.log(taskss);
 
   const taskIdss = JSON.parse(localStorage.getItem("projecidjira"))
 
@@ -134,7 +133,6 @@ const CreateTask = () => {
           >
             <option>chọn status</option>
             {getall?.map((get) => {
-              // console.log(get);
               return (
                 <option key={get.statusId} value={get.statusId}>
                   {get.statusName}
@@ -160,7 +158,6 @@ const CreateTask = () => {
             >
               <option>chọn priority</option>
               {getallpri?.map((getpri) => {
-                // console.log(getpri);
                 return (
                   <option key={getpri.priorityId} value={getpri.priorityId}>
                     {getpri.priority}

@@ -10,9 +10,6 @@ import scss from "../project/styles.module.scss";
 const CreateUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
- 
-
- 
 
   const {
     register,
@@ -29,10 +26,8 @@ const CreateUser = () => {
     mode: "onTouched",
   });
 
-  
-
   const onSubmit = async (values) => {
-    console.log(values)
+    console.log(values);
     const user = JSON.parse(localStorage.getItem("user"));
     const acce = user.accessToken;
     try {
@@ -54,7 +49,6 @@ const CreateUser = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("email", {
               required: {
@@ -69,7 +63,6 @@ const CreateUser = () => {
         </div>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("passWord", {
               required: {
@@ -84,7 +77,6 @@ const CreateUser = () => {
         </div>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("name", {
               required: {
@@ -99,7 +91,6 @@ const CreateUser = () => {
         </div>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("phoneNumber", {
               required: {
@@ -112,7 +103,7 @@ const CreateUser = () => {
           <label>phoneNumber</label>
           {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
         </div>
-        
+
         <button>Create user</button>
       </form>
     </div>

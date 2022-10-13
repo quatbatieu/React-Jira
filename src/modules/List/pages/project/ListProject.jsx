@@ -33,16 +33,13 @@ const ListProject = () => {
   const { data: projects, listuser: users } = useSelector(
     (state) => state.project
   );
-  // console.log(users);
   const { data1: tasks } = useSelector((state) => state.task);
-  // console.log(tasks);
 
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user);
 
   useEffect(() => {
-    // const user = JSON.parse(localStorage.getItem("user"));
     dispatch(getAllProject());
   }, []);
 

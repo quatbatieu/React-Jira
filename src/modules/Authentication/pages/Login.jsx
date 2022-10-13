@@ -5,13 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
 import scss from "./styles.module.scss";
 
-
 const Login = () => {
-  const {
-    handleSubmit,
-    // Sử dụng kết hợp với Controller thay thế cho register đối với các trường hợp component không hỗ trợ ref
-    control,
-  } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
       passWord: "",
@@ -25,10 +20,8 @@ const Login = () => {
 
   const onSubmit = async (values) => {
     try {
-      // chờ cho action login thành công
       await dispatch(login(values)).unwrap();
-      navigate("/")
-      // Chuyển user về trang home
+      navigate("/");
       notification.success({
         message: "Đăng nhập thành công",
       });
@@ -40,12 +33,10 @@ const Login = () => {
     }
   };
 
-  const handleClick = () =>{
-    navigate("/register")
-  }
-  
+  const handleClick = () => {
+    navigate("/register");
+  };
 
-  // Đã đăng nhập
   if (user) {
     return <Navigate to="/" />;
   }
@@ -112,7 +103,9 @@ const Login = () => {
             >
               Đăng Nhập
             </Button>
-            <a href="" onClick={handleClick}>Đăng ký</a>
+            <a href="" onClick={handleClick}>
+              Đăng ký
+            </a>
           </Form.Item>
         </Form>
       </div>

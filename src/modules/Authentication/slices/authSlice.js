@@ -12,7 +12,6 @@ export const login = createAsyncThunk(
   async (values, { rejectWithValue }) => {
     try {
       const data = await authAPI.login(values);
-      // Lưu thông tin vào localStorate
       localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (error) {

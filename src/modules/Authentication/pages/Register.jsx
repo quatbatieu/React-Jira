@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { registers } from "../slices/authSlice";
 import scss from "./style.module.scss";
 
-// data: taiKhoan, matKhau, email, hoTen, soDt
 
 const Register = () => {
   const {
@@ -21,28 +20,21 @@ const Register = () => {
       name: "",
       phoneNumber: "",
     },
-    // Chế độ kích hoạt validation, mặc định là onSubmit
     mode: "onTouched",
   });
   const { user, isLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const { data: handleRegister, isLoading } = useRequest((values) =>
-  //   authAPI.register(values)
-  // );
 
   const onSubmit = async (values) => {
     try {
       await dispatch(registers(values)).unwrap();
-      // await handleRegister(values);
-      // Sau khi đăng ký thành công, ta cần chuyển user về trang login
       navigate("/login");
       notification.success({
         message: "Đăng ký thành công",
       });
     } catch (error) {
-      // Đăng ký thất bại show error ra cho user thấy
       notification.error({
         message: "Đăng ký thất bại",
         description: error,

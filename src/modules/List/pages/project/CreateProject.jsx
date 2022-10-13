@@ -14,7 +14,6 @@ const CreateProject = () => {
   const dispatch = useDispatch();
 
   const { list: aliass } = useSelector((state) => state.project);
-  console.log(aliass);
 
   useEffect(() => {
     dispatch(ProjectCategory());
@@ -63,7 +62,6 @@ const CreateProject = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("projectName", {
               required: {

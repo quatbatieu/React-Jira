@@ -4,7 +4,6 @@ const initialState = {
   users: [],
   isLoading: null,
   error: "",
-  // acc:[]
   detaisUser: {},
 };
 export const getAllUser = createAsyncThunk(
@@ -69,7 +68,6 @@ const userSlices = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getAllUser.fulfilled, (state, { payload }) => {
-      // console.log("aidaduser",payload)
       state.users = payload;
       state.isLoading = false;
     });

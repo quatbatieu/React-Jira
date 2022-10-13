@@ -77,7 +77,6 @@ const UpdateProject = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
         <div className={scss.field}>
           <input
-            // hidden
             type="text"
             {...register("projectName", {
               required: {

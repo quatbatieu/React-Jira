@@ -3,9 +3,6 @@ import axiosClient from "./axiosClient";
 const projectAPI = {
   getAllProject: (acces) => {
     return axiosClient.get("Project/getAllProject", {
-      // headers: {
-      //   Authorization: `Bearer ${acces}`,
-      // },
     });
   },
   getUser: (acces) => {

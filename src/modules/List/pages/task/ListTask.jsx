@@ -44,8 +44,6 @@ const ListProject = () => {
   const { taskId } = useParams();
   localStorage.setItem("projecidjira", JSON.stringify(taskId));
   const { data1: tasks, comment } = useSelector((state) => state.task);
-  console.log(comment);
-  // console.log(tasks);
 
   useEffect(() => {
     dispatch(getProjectDetails({ taskId, acces }));
@@ -102,7 +100,6 @@ const ListProject = () => {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
     try {
@@ -124,7 +121,6 @@ const ListProject = () => {
   };
   const handleGetdetail = (comment) => {
     setRenderbut(true);
-    console.log(comment);
     setValue("contentComment", comment.contentComment);
     setValue("id", comment.id);
   };
@@ -170,16 +166,12 @@ const ListProject = () => {
                       <p>{task.statusName}</p>
 
                       {task.lstTaskDeTail.map((lstTask) => {
-                        {
-                          /* console.log(lstTask); */
-                        }
                         return (
                           <div className="row bg-white ms-0 me-0  mb-3">
                             <div
                               className="col-sm-7"
                               key={lstTask.taskId}
                               style={{ margin: "10px 0", color: "red" }}
-                              // className= "bg-white col-sm-8 "
                             >
                               <div>
                                 <span className=" text-dark me-1">
@@ -274,9 +266,6 @@ const ListProject = () => {
               <div className={scss.text2}>
                 <div className="row">
                   {comment.map((com) => {
-                    {
-                      /* console.log(com); */
-                    }
                     return (
                       <div className="row">
                         <div className="col-sm-2">

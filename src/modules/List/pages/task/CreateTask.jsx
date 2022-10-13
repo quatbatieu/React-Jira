@@ -79,7 +79,6 @@ const CreateTask = () => {
   const onSubmit = async (values) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
-    console.log(values);
     try {
       await dispatch(createTask({ values, acces })).unwrap();
       navigate(`/task/${taskId}`);
@@ -135,7 +134,6 @@ const CreateTask = () => {
           >
             <option>chọn status</option>
             {getall?.map((get) => {
-              // console.log(get);
               return (
                 <option key={get.statusId} value={get.statusId}>
                   {get.statusName}
@@ -161,7 +159,6 @@ const CreateTask = () => {
             >
               <option>chọn priority</option>
               {getallpri?.map((getpri) => {
-                // console.log(getpri);
                 return (
                   <option key={getpri.priorityId} value={getpri.priorityId}>
                     {getpri.priority}
