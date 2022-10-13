@@ -10,7 +10,7 @@ import { Layout, Menu, notification } from "antd";
 import { Modal } from "antd";
 import React, { useState, useEffect } from "react";
 import scss from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import {
@@ -138,6 +138,9 @@ const ListProject = () => {
   };
 
   const handleClick6 = () => {};
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
