@@ -53,55 +53,57 @@ const CreateUser = () => {
   };
 
   return (
-    <div className={scss.center}>
-      <h1 className={scss.h1}>Create Project</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
-        <div className={scss.field}>
-          <input
-            type="text"
-            {...register("email", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          <span></span>
-          <label>email</label>
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
+    <div className={scss.title}>
+      <div className={scss.center}>
+        <h1 className={scss.h1}>Create Project</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
+          <div className={scss.field}>
+            <input
+              type="text"
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "không được để trống",
+                },
+              })}
+            />
+            <span></span>
+            <label>email</label>
+            {errors.email && <p>{errors.email.message}</p>}
+          </div>
 
-        <div className={scss.field}>
-          <input
-            type="text"
-            {...register("name", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          <span></span>
-          <label>name</label>
-          {errors.name && <p>{errors.name.message}</p>}
-        </div>
-        <div className={scss.field}>
-          <input
-            type="text"
-            {...register("phoneNumber", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          <span></span>
-          <label>phoneNumber</label>
-          {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
-        </div>
-        {abc()}
-        <button>Create user</button>
-      </form>
+          <div className={scss.field}>
+            <input
+              type="text"
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "không được để trống",
+                },
+              })}
+            />
+            <span></span>
+            <label>name</label>
+            {errors.name && <p>{errors.name.message}</p>}
+          </div>
+          <div className={scss.field}>
+            <input
+              type="text"
+              {...register("phoneNumber", {
+                required: {
+                  value: true,
+                  message: "không được để trống",
+                },
+              })}
+            />
+            <span></span>
+            <label>phoneNumber</label>
+            {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+          </div>
+          {abc()}
+          <button>Create user</button>
+        </form>
+      </div>
     </div>
   );
 };

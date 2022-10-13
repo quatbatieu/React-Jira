@@ -72,70 +72,72 @@ const UpdateProject = () => {
     }
   };
   return (
-    <div className={scss.center}>
-      <h1 className={scss.h1}>Update Project</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
-        <div className={scss.field}>
-          <input
-            type="text"
-            {...register("projectName", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          <span></span>
-          <label>Name</label>
-          {errors.projectName && (
-            <p style={{ color: "red" }}>{errors.projectName.message}</p>
-          )}
-        </div>
-        <div className={scss.diss}>
-          <label htmlFor="">Description</label>
-          <textarea
-            rows={8}
-            cols={63}
-            placeholder="Description..."
-            {...register("description", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          {errors.description && (
-            <p style={{ color: "red" }}>{errors.description.message}</p>
-          )}
-        </div>
-        <div className={scss.diss}>
-          <label htmlFor="">Chọn dự án</label>
-          <select
-            style={{ display: "block" }}
-            onChange={handleChange}
-            {...register("categoryId", {
-              required: {
-                value: true,
-                message: "Chọn dự án",
-              },
-            })}
-          >
-            <option>chọn dự án</option>
-            {aliass?.map((alia) => {
-              return (
-                <option key={alia.id} value={alia.id}>
-                  {alia.projectCategoryName}
-                </option>
-              );
-            })}
-          </select>
-          {errors.categoryId && (
-            <p style={{ color: "red" }}>{errors.categoryId.message}</p>
-          )}
-        </div>
-        <button>Update Project</button>
-      </form>
-      {setInput()}
+    <div className={scss.title}>
+      <div className={scss.center}>
+        <h1 className={scss.h1}>Update Project</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
+          <div className={scss.field}>
+            <input
+              type="text"
+              {...register("projectName", {
+                required: {
+                  value: true,
+                  message: "không được để trống",
+                },
+              })}
+            />
+            <span></span>
+            <label>Name</label>
+            {errors.projectName && (
+              <p style={{ color: "red" }}>{errors.projectName.message}</p>
+            )}
+          </div>
+          <div className={scss.diss}>
+            <label htmlFor="">Description</label>
+            <textarea
+              rows={8}
+              cols={63}
+              placeholder="Description..."
+              {...register("description", {
+                required: {
+                  value: true,
+                  message: "không được để trống",
+                },
+              })}
+            />
+            {errors.description && (
+              <p style={{ color: "red" }}>{errors.description.message}</p>
+            )}
+          </div>
+          <div className={scss.diss}>
+            <label htmlFor="">Chọn dự án</label>
+            <select
+              style={{ display: "block" }}
+              onChange={handleChange}
+              {...register("categoryId", {
+                required: {
+                  value: true,
+                  message: "Chọn dự án",
+                },
+              })}
+            >
+              <option>chọn dự án</option>
+              {aliass?.map((alia) => {
+                return (
+                  <option key={alia.id} value={alia.id}>
+                    {alia.projectCategoryName}
+                  </option>
+                );
+              })}
+            </select>
+            {errors.categoryId && (
+              <p style={{ color: "red" }}>{errors.categoryId.message}</p>
+            )}
+          </div>
+          <button>Update Project</button>
+        </form>
+        {setInput()}
+      </div>
     </div>
   );
 };
