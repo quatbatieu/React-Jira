@@ -44,6 +44,8 @@ const ListProject = () => {
   const { taskId } = useParams();
   localStorage.setItem("projecidjira", JSON.stringify(taskId));
   const { data1: tasks, comment } = useSelector((state) => state.task);
+  // console.log(comment);
+  // console.log(tasks);
 
   useEffect(() => {
     dispatch(getProjectDetails({ taskId, acces }));
@@ -95,11 +97,8 @@ const ListProject = () => {
     dispatch(deleteComment({ commentId, acces, taskId }));
   };
 
-  const handle1 = () => {
-    navigate("/")
-  };
-
   const onSubmit = async (values) => {
+    console.log(values);
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
     try {
@@ -111,6 +110,12 @@ const ListProject = () => {
         });
       } else {
         dispatch(updateComment({ values, acces }));
+
+        // setRenderbut(false)
+        //   setValue("id","")
+        // notification.success({
+        //   message: "update comment thành công",
+        // });
       }
     } catch (error) {
       notification.error({
@@ -121,6 +126,7 @@ const ListProject = () => {
   };
   const handleGetdetail = (comment) => {
     setRenderbut(true);
+    console.log(comment);
     setValue("contentComment", comment.contentComment);
     setValue("id", comment.id);
   };
@@ -129,9 +135,9 @@ const ListProject = () => {
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={scss.logo} />
-        <div className={scss.iho} onClick={() => handle1()}>
-          <UserOutlined className={scss.icon}  />
-          <a style={{ color: "white" }}>Project List</a>
+        <div className={scss.iho}>
+          <UserOutlined className={scss.icon} />
+          <a style={{ color: "white" }}>Task List</a>
         </div>
         <div className={scss.iho} onClick={() => handleClick1(taskId)}>
           <VideoCameraOutlined className={scss.icon} />
@@ -157,87 +163,90 @@ const ListProject = () => {
             minHeight: "100%",
           }}
         >
-          <div className="container">
+          <div className="container pb-3">
             <div className="row">
               {tasks?.lstTask?.map((task) => {
                 return (
-                  <div key={task.statusId} className="col-sm-3 ">
-                    <div className="bg-primary">
-                      <p>{task.statusName}</p>
+                  <div key={task.statusId} className="col-3 ">
+                    <div className="bg-dark text-white  ">
+                      <p className="ms-1">{task.statusName}</p>
 
-                      {task.lstTaskDeTail.map((lstTask) => {
-                        return (
-                          <div className="row bg-white ms-0 me-0  mb-3">
-                            <div
-                              className="col-sm-7"
-                              key={lstTask.taskId}
-                              style={{ margin: "10px 0", color: "red" }}
-                            >
-                              <div>
-                                <span className=" text-dark me-1">
-                                  TASK NAME:
-                                </span>
-                                <span>{lstTask.taskName}</span>
-                              </div>
-                              <div className="mt-3">
-                                <span className=" text-dark  me-1">
-                                  DESCRIPTION :{" "}
-                                </span>
-                                <span>{lstTask.description}</span>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-sm-6">
-                                  {lstTask.priorityTask.priority}
+                      
+                     <div >
+                     {task.lstTaskDeTail.map((lstTask) => {
+                          return (
+                            <div style={{borderRadius:"10px"}} className="row bg-white ms-0 me-0 pb-3  mb-3">
+                              <div
+                                className="col-sm-12 pe-1  "
+                                key={lstTask.taskId}
+                                style={{ margin: "10px 0", color: "red" }}
+                                // className= "bg-white col-sm-8 "
+                              >
+                                <div width= {"100%"}>
+                                  
+                                  <span> TASK NAME: {lstTask.taskName}</span>
                                 </div>
-                                <div className="col-sm-6 row">
-                                  {lstTask.assigness.map((assignes) => {
-                                    return (
-                                      <div className="col-sm-4">
-                                        <img
-                                          className={scss.img}
-                                          src={assignes.avatar}
-                                          alt=""
-                                        />
-                                      </div>
-                                    );
-                                  })}
+                                <div  width= {"100%"}className="mt-3">
+                                  
+                                  <span> DESCRIPTION: {lstTask.description}</span>
                                 </div>
+                                <div className="row mt-3">
+                                  <div className="col-sm-12">
+                                    {lstTask.priorityTask.priority}
+                                  </div>
+                                  <div className="col-sm-12 mt-3 row">
+                                    {lstTask.assigness.map((assignes) => {
+                                      return (
+                                        <div className="col-sm-4">
+                                          <img
+                                            className={scss.img}
+                                            src={assignes.avatar}
+                                            alt=""
+                                          />
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-sm-12 mt-1">
+                               <div style={{justifyContent:"space-around"}} className="row">
+                               <button
+                                  // style={{ width: "95px" }}
+                                  className="btn btn-success   col-sm-3"
+                                  onClick={() => UpdateTask(lstTask.taskId)}
+                                >
+                                  Update
+                                </button>
+                                <button
+                                  // style={{ width: "95px" }}
+                                  className="btn btn-primary  col-sm-4"
+                                  onClick={() => showModalb(lstTask.taskId)}
+                                >
+                                  Comment
+                                </button>
+                                <button
+                                  // style={{ width: "95px" }}
+                                  className="btn btn-danger col-sm-4"
+                                  onClick={() =>
+                                    handleDelete(
+                                      lstTask.taskId,
+                                      user.accessToken,
+                                      taskId
+                                    )
+                                  }
+                                >
+                                  DELETE
+                                </button>
+                               </div>
                               </div>
                             </div>
-                            <div className="col-sm-4 mt-1">
-                              <button
-                                style={{ width: "95px" }}
-                                className="btn btn-success mb-3"
-                                onClick={() => UpdateTask(lstTask.taskId)}
-                              >
-                                Update
-                              </button>
-                              <button
-                                style={{ width: "95px" }}
-                                className="btn btn-primary mb-3"
-                                onClick={() => showModalb(lstTask.taskId)}
-                              >
-                                Comment
-                              </button>
-                              <button
-                                style={{ width: "95px" }}
-                                className="btn btn-danger"
-                                onClick={() =>
-                                  handleDelete(
-                                    lstTask.taskId,
-                                    user.accessToken,
-                                    taskId
-                                  )
-                                }
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                     </div>
+                      </div>
                     </div>
-                  </div>
+                  
                 );
               })}
             </div>
@@ -266,6 +275,9 @@ const ListProject = () => {
               <div className={scss.text2}>
                 <div className="row">
                   {comment.map((com) => {
+                    {
+                      /* console.log(com); */
+                    }
                     return (
                       <div className="row">
                         <div className="col-sm-2">
