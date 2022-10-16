@@ -119,13 +119,16 @@ const ListProject = () => {
     setValue("id", comment.id);
   };
 
+  const handleClick2 = () =>{
+    navigate("/")
+  }
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={scss.logo} />
-        <div className={scss.iho}>
+        <div className={scss.iho} onClick={() => handleClick2()}>
           <UserOutlined className={scss.icon} />
-          <a style={{ color: "white" }}>Task List</a>
+          <a style={{ color: "white" }}>Project List</a>
         </div>
         <div className={scss.iho} onClick={() => handleClick1(taskId)}>
           <VideoCameraOutlined className={scss.icon} />
