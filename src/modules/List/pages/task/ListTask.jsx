@@ -44,8 +44,6 @@ const ListProject = () => {
   const { taskId } = useParams();
   localStorage.setItem("projecidjira", JSON.stringify(taskId));
   const { data1: tasks, comment } = useSelector((state) => state.task);
-  // console.log(comment);
-  // console.log(tasks);
 
   useEffect(() => {
     dispatch(getProjectDetails({ taskId, acces }));
@@ -61,7 +59,6 @@ const ListProject = () => {
 
   const showModalb = (a) => {
     dispatch(getAllComment(a));
-    console.log(a);
     setValue("taskId", a);
     setOpen(true);
   };
@@ -85,7 +82,6 @@ const ListProject = () => {
   };
 
   const handleDelete = (taskIds, acce, taskId) => {
-    console.log(taskIds, acce, taskId);
     dispatch(removeTaskz({ taskIds, acce, taskId }));
   };
 
@@ -98,7 +94,6 @@ const ListProject = () => {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
     try {
@@ -110,12 +105,6 @@ const ListProject = () => {
         });
       } else {
         dispatch(updateComment({ values, acces }));
-
-        // setRenderbut(false)
-        //   setValue("id","")
-        // notification.success({
-        //   message: "update comment thành công",
-        // });
       }
     } catch (error) {
       notification.error({
@@ -126,7 +115,6 @@ const ListProject = () => {
   };
   const handleGetdetail = (comment) => {
     setRenderbut(true);
-    console.log(comment);
     setValue("contentComment", comment.contentComment);
     setValue("id", comment.id);
   };
@@ -171,24 +159,26 @@ const ListProject = () => {
                     <div className="bg-dark text-white  ">
                       <p className="ms-1">{task.statusName}</p>
 
-                      
-                     <div >
-                     {task.lstTaskDeTail.map((lstTask) => {
+                      <div>
+                        {task.lstTaskDeTail.map((lstTask) => {
                           return (
-                            <div style={{borderRadius:"10px"}} className="row bg-white ms-0 me-0 pb-3  mb-3">
+                            <div
+                              style={{ borderRadius: "10px" }}
+                              className="row bg-white ms-0 me-0 pb-3  mb-3"
+                            >
                               <div
                                 className="col-sm-12 pe-1  "
                                 key={lstTask.taskId}
                                 style={{ margin: "10px 0", color: "red" }}
-                                // className= "bg-white col-sm-8 "
                               >
-                                <div width= {"100%"}>
-                                  
+                                <div width={"100%"}>
                                   <span> TASK NAME: {lstTask.taskName}</span>
                                 </div>
-                                <div  width= {"100%"}className="mt-3">
-                                  
-                                  <span> DESCRIPTION: {lstTask.description}</span>
+                                <div width={"100%"} className="mt-3">
+                                  <span>
+                                    {" "}
+                                    DESCRIPTION: {lstTask.description}
+                                  </span>
                                 </div>
                                 <div className="row mt-3">
                                   <div className="col-sm-12">
@@ -210,43 +200,42 @@ const ListProject = () => {
                                 </div>
                               </div>
                               <div className="col-sm-12 mt-1">
-                               <div style={{justifyContent:"space-around"}} className="row">
-                               <button
-                                  // style={{ width: "95px" }}
-                                  className="btn btn-success   col-sm-3"
-                                  onClick={() => UpdateTask(lstTask.taskId)}
+                                <div
+                                  style={{ justifyContent: "space-around" }}
+                                  className="row"
                                 >
-                                  Update
-                                </button>
-                                <button
-                                  // style={{ width: "95px" }}
-                                  className="btn btn-primary  col-sm-4"
-                                  onClick={() => showModalb(lstTask.taskId)}
-                                >
-                                  Comment
-                                </button>
-                                <button
-                                  // style={{ width: "95px" }}
-                                  className="btn btn-danger col-sm-4"
-                                  onClick={() =>
-                                    handleDelete(
-                                      lstTask.taskId,
-                                      user.accessToken,
-                                      taskId
-                                    )
-                                  }
-                                >
-                                  DELETE
-                                </button>
-                               </div>
+                                  <button
+                                    className="btn btn-success   col-sm-3"
+                                    onClick={() => UpdateTask(lstTask.taskId)}
+                                  >
+                                    Update
+                                  </button>
+                                  <button
+                                    className="btn btn-primary  col-sm-4"
+                                    onClick={() => showModalb(lstTask.taskId)}
+                                  >
+                                    Comment
+                                  </button>
+                                  <button
+                                    className="btn btn-danger col-sm-4"
+                                    onClick={() =>
+                                      handleDelete(
+                                        lstTask.taskId,
+                                        user.accessToken,
+                                        taskId
+                                      )
+                                    }
+                                  >
+                                    DELETE
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           );
                         })}
-                     </div>
                       </div>
                     </div>
-                  
+                  </div>
                 );
               })}
             </div>

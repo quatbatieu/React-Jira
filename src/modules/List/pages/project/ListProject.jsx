@@ -103,14 +103,6 @@ const ListProject = () => {
     navigate("/login");
   };
 
-  const handleLogin = () => {
-    navigate("/Login");
-  };
-
-  const handleRegister = () => {
-    navigate("/Register");
-  };
-
   const onSubmit = async (values) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
@@ -288,9 +280,6 @@ const ListProject = () => {
                           </select>
                           <button
                             className={scss.buttons}
-                            onClick={() => {
-                              handleClick6();
-                            }}
                           >
                             <PlusCircleOutlined />
                           </button>

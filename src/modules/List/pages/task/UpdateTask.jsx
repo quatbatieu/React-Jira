@@ -93,7 +93,6 @@ const CreateTask = () => {
   const onSubmit = async (values) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
-    console.log(values);
     try {
       await dispatch(updateTasks({ values, acces })).unwrap();
       navigate(`/task/${taskIds}`);

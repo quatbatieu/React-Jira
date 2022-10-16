@@ -55,7 +55,6 @@ const UpdateProject = () => {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const acce = user.accessToken;
