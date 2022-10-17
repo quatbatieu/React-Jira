@@ -41,11 +41,11 @@ const CreateUser = () => {
       await dispatch(updateUser(values)).unwrap();
       navigate("/user");
       notification.success({
-        message: "tạo project thành công",
+        message: "update user thành công",
       });
     } catch (error) {
       notification.error({
-        message: "tạo project thất bại",
+        message: "update user thất bại",
         description: error,
       });
     }
@@ -54,7 +54,7 @@ const CreateUser = () => {
   return (
     <div className={scss.title}>
       <div className={scss.center}>
-        <h1 className={scss.h1}>Create Project</h1>
+        <h1 className={scss.h1}>Update Project</h1>
         <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
           <div className={scss.field}>
             <input
