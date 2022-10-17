@@ -267,9 +267,6 @@ const ListProject = () => {
               <div className={scss.text2}>
                 <div className="row">
                   {comment.map((com) => {
-                    {
-                      /* console.log(com); */
-                    }
                     return (
                       <div className="row">
                         <div className="col-sm-2">
