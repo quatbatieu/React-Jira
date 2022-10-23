@@ -21,6 +21,7 @@ const UpdateProject = () => {
   const { update: projects, list: aliass } = useSelector(
     (state) => state.project
   );
+  console.log(projects);
   const creatorId = projects.creator?.id;
 
   useEffect(() => {

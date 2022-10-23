@@ -174,14 +174,14 @@ const projectSlices = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(getProjectDetails.pending, (state) => {
+    builder.addCase(getProjectDetail.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getProjectDetails.fulfilled, (state, { payload }) => {
+    builder.addCase(getProjectDetail.fulfilled, (state, { payload }) => {
       state.update = payload;
       state.isLoading = false;
     });
-    builder.addCase(getProjectDetails.rejected, (state, { payload }) => {
+    builder.addCase(getProjectDetail.rejected, (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
     });

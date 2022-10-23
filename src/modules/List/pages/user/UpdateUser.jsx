@@ -54,7 +54,7 @@ const CreateUser = () => {
   return (
     <div className={scss.title}>
       <div className={scss.center}>
-        <h1 className={scss.h1}>Update Project</h1>
+        <h1 className={scss.h1}>Update User</h1>
         <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
           <div className={scss.field}>
             <input
@@ -100,7 +100,7 @@ const CreateUser = () => {
             {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
           </div>
           {abc()}
-          <button>Create user</button>
+          <button>Update user</button>
         </form>
       </div>
     </div>
