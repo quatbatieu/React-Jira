@@ -34,11 +34,11 @@ const CreateUser = () => {
       await dispatch(CreateUsers(values)).unwrap();
       navigate("/user");
       notification.success({
-        message: "tạo project thành công",
+        message: "tạo user thành công",
       });
     } catch (error) {
       notification.error({
-        message: "tạo project thất bại",
+        message: "tạo user thất bại",
         description: error,
       });
     }

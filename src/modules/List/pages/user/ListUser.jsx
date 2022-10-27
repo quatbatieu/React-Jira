@@ -12,7 +12,7 @@ import React, { useState, useEffect } from "react";
 import scss from "../project/style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, getAllUser,getdetailUser } from "modules/List/slices/userSlices";
+import { deleteUser, getAllUser, getdetailUser } from "modules/List/slices/userSlices";
 
 const { Header, Sider, Content } = Layout;
 

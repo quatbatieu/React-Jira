@@ -35,9 +35,10 @@ const Register = () => {
         message: "Đăng ký thành công",
       });
     } catch (error) {
+      console.log(error);
       notification.error({
         message: "Đăng ký thất bại",
-        description: error,
+        description: error.message ,
       });
     }
   };
@@ -68,7 +69,7 @@ const Register = () => {
         </div>
         <div className={scss.field}>
           <input
-            type="text"
+            type="password"
             {...register("passWord", {
               required: {
                 value: true,
@@ -101,7 +102,7 @@ const Register = () => {
           <input
             type="text"
             {...register("phoneNumber", {
-              required: { value: true, message: "sđt không được để trống" },
+              required: { value: true, message: "số điện thoại không được để trống" },
             })}
           />
           <span></span>
