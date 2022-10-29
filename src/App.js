@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import AuthLayout from "components/AuthLayout";
+import Spiner from "Spiner";
 
 const Login = lazy(() => import("modules/Authentication/pages/Login"));
 const Register = lazy(() => import("modules/Authentication/pages/Register"));
@@ -22,7 +23,7 @@ const CreateUser = lazy(() => import("modules/List/pages/user/CreateUser"));
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<Spiner/>}>
       <Routes>
         <Route path="/" element={<ListProject />} />
         <Route path="/addproject" element={<CreateProject />} />
@@ -41,7 +42,9 @@ function App() {
         </Route>
       </Routes>
     </Suspense>
+    // <Spiner/>
   );
 }
 
 export default App;
+

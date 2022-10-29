@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "../store";
 
-const axiosClient = axios.create({
+const axiosClientz = axios.create({
   baseURL: "https://jiranew.cybersoft.edu.vn/api/",
   headers: {
     TokenCybersoft:
@@ -9,7 +9,7 @@ const axiosClient = axios.create({
   },
 });
 
-axiosClient.interceptors.request.use((config) => {
+axiosClientz.interceptors.request.use((config) => {
   const { accessToken } = store.getState().auth.user || {};
 
   if (accessToken) {
@@ -19,14 +19,14 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
-axiosClient.interceptors.response.use(
+axiosClientz.interceptors.response.use(
   (response) => {
     return response.data.content;
   },
 
   (error) => {
-    return Promise.reject(error.response?.data?.content);
+    return Promise.reject(error.response?.data?.message);
   }
 );
 
-export default axiosClient;
+export default axiosClientz;

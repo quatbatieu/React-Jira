@@ -109,7 +109,6 @@ export const updateProjects = createAsyncThunk(
 export const assignUserProject = createAsyncThunk(
   "project/assignUserProject",
   async (title, { rejectWithValue, dispatch }) => {
-    console.log(title);
     try {
       const data = await projectAPI.assignUserProject(
         title.values,
@@ -126,13 +125,13 @@ export const assignUserProject = createAsyncThunk(
 export const removeUserz = createAsyncThunk(
   "project/removeUseroject",
   async (title, { rejectWithValue,dispatch }) => {
-    console.log(title)
     try {
       const data = await projectAPI.removeUserProject(
         title.values,
         title.acces,
       );
       dispatch(getProjectDetails({taskId : title.values.projectId, acce : title.acces}))
+      dispatch(getAllProject())
       return data;
     } catch (error) {
       return rejectWithValue(error);

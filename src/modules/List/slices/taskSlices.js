@@ -10,13 +10,14 @@ const initialState = {
   getalltas: [],
   updatetask: [],
   comment: [],
+  listMemberz:[]
 };
 
 export const getProjectDetails = createAsyncThunk(
   "task/getProjectDetails",
   async (title, { rejectWithValue }) => {
     try {
-      const data = await taskAPI.getProjectDetail(title.taskId, title.acces);
+      const data = await taskAPI.getProjectDetail(title?.taskId, title?.acces);
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -165,13 +166,16 @@ export const updateComment = createAsyncThunk(
 const taskSlices = createSlice({
   name: "task",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
   extraReducers: (builder) => {
     builder.addCase(getProjectDetails.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getProjectDetails.fulfilled, (state, { payload }) => {
       state.data1 = payload;
+      
       state.isLoading = false;
     });
     builder.addCase(getProjectDetails.rejected, (state, { payload }) => {
@@ -217,9 +221,14 @@ const taskSlices = createSlice({
 
     builder.addCase(getTaskDetail.pending, (state) => {
       state.isLoading = true;
+      state.listMember=[]
+      state.updatetask = [];
     });
     builder.addCase(getTaskDetail.fulfilled, (state, { payload }) => {
       state.updatetask = payload;
+            state.listMemberz= payload.assigness.map((item)=>{
+        return `${item.id}`
+      }); 
       state.isLoading = false;
     });
     builder.addCase(getTaskDetail.rejected, (state, { payload }) => {

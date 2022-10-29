@@ -10,7 +10,8 @@ import scss from "../project/styles.module.scss";
 const CreateUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const { users ,error:abc} = useSelector((state) => state.user);  
+  console.log(abc);
   const {
     register,
     handleSubmit,

@@ -3,7 +3,7 @@ import userAPI from "apis/userAPI";
 const initialState = {
   users: [],
   isLoading: null,
-  error: "",
+  error: null,
   detaisUser: {},
 };
 export const getAllUser = createAsyncThunk(
@@ -22,8 +22,7 @@ export const CreateUsers = createAsyncThunk(
   async (values, { rejectWithValue, dispatch }) => {
     try {
       const data = await userAPI.createUserApi(values);
-      // dispatch(getAllUser())
-      // return data;
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -33,7 +32,6 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (title, { rejectWithValue, dispatch }) => {
     try {
-      // console.log(title)
       const data = await userAPI.deleteUserApi(title.userId, title.acc);
       dispatch(getAllUser());
     } catch (error) {
@@ -46,10 +44,7 @@ export const updateUser = createAsyncThunk(
   async (values, { rejectWithValue, dispatch }) => {
     try {
       const data = await userAPI.updateUserApi(values);
-      // dispatch(getAllUser())
-      // return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -72,6 +67,7 @@ const userSlices = createSlice({
       state.isLoading = false;
     });
     builder.addCase(getAllUser.rejected, (state, { payload }) => {
+        
       state.error = payload;
       state.isLoading = false;
     });

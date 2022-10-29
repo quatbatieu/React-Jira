@@ -60,7 +60,6 @@ const projectAPI = {
     });
   },
   removeUserProject: (values, acces) => {
-    console.log(values,acces)
     return axiosClient.post("Project/removeUserFromProject", values, {
       headers: {
         Authorization: `Bearer ${acces}`,

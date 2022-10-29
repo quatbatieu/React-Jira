@@ -1,11 +1,11 @@
-import axiosClient from "./axiosClient";
+import axiosClientz from "./axiosClientz"; 
 const userAPI = {
   getAllUser: () => {
-    return axiosClient.get("Users/getUser");
+    return axiosClientz.get("Users/getUser");
   },
   deleteUserApi: (userId, acces) => {
     console.log(userId, acces);
-    return axiosClient.delete("Users/deleteUser", {
+    return axiosClientz.delete("Users/deleteUser", {
       headers: {
         Authorization: `Bearer ${acces}`,
       },
@@ -15,15 +15,15 @@ const userAPI = {
     });
   },
   createUserApi: (values) => {
-    return axiosClient.post("Users/signup", values);
+    return axiosClientz.post("Users/signup", values);
   },
   getAllUserdetailz: (userId) => {
     console.log(userId);
-    return axiosClient.get(`Users/getUser?userId=${userId}`);
+    return axiosClientz.get(`Users/getUser?userId=${userId}`);
   },
   updateUserApi: (values) => {
     console.log(values);
-    return axiosClient.put("Users/editUser", {
+    return axiosClientz.put("Users/editUser", {
       ...values,
     });
   },

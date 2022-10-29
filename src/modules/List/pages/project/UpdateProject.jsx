@@ -21,7 +21,7 @@ const UpdateProject = () => {
   const { update: projects, list: aliass } = useSelector(
     (state) => state.project
   );
-  console.log(projects);
+
   const creatorId = projects.creator?.id;
 
   useEffect(() => {
@@ -46,8 +46,9 @@ const UpdateProject = () => {
   });
 
   const setInput = () => {
-    setValue("projectName", projects.projectName);
-    setValue("description", projects.description);
+    setValue("projectName", projects?.projectName);
+    setValue("description", projects?.description);
+    setValue("categoryId",projects?.projectCategory?.id)
   };
 
   const handleChange = (evt) => {

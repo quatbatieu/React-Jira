@@ -40,7 +40,6 @@ const CreateProject = () => {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     const user = JSON.parse(localStorage.getItem("user"));
     const acce = user.accessToken;
     try {

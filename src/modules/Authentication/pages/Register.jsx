@@ -35,10 +35,9 @@ const Register = () => {
         message: "Đăng ký thành công",
       });
     } catch (error) {
-      console.log(error);
       notification.error({
         message: "Đăng ký thất bại",
-        description: error.message ,
+        description: error,
       });
     }
   };

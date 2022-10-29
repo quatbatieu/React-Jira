@@ -131,6 +131,61 @@ const ListProject = () => {
   }
   return (
     <Layout>
+      <Modal
+        title="Members"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <table className={scss.tables}>
+          <thead>
+            <tr>
+              <th style={{ padding: "5px 40px" }}>Id</th>
+              <th style={{ padding: "5px 40px" }}>Avatar</th>
+              <th style={{ padding: "5px 40px" }}>Name</th>
+              <th style={{ padding: "5px 40px" }}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks?.members?.map((member) => {
+              return (
+                <tr key={member.userId}>
+                  <td style={{ padding: "5px 40px" }}>{member.userId}</td>
+                  <td style={{ padding: "5px 40px" }}>
+                    <img src={member.avatar}></img>
+                  </td>
+                  <td style={{ padding: "5px 40px" }}>{member.name}</td>
+                  <td style={{ padding: "5px 40px" }}>
+                    <button
+                      onClick={() => removeUser(tasks.id, member.userId)}
+                      className={scss.buttons}
+                    >
+                      <DeleteOutlined />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        <h4>Add User</h4>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <select className={scss.selects} onChange={handleChange}>
+            <option value="">chọn user</option>
+            {users.map((usera) => {
+              return (
+                <option key={usera.userId} value={usera.userId}>
+                  {usera.name}
+                </option>
+              );
+            })}
+          </select>
+          <button className={scss.buttons}>
+            <PlusCircleOutlined />
+          </button>
+        </form>
+      </Modal>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={scss.logo} />
         <div className={scss.iho} onClick={() => handleClick1()}>
@@ -190,116 +245,53 @@ const ListProject = () => {
               </tr>
             </thead>
             <tbody>
-              {projects?.map((project) => {
-                return (
-                  <tr key={project.id}>
-                    {setValue("projectId", project.id)}
-                    <td>{project.id}</td>
-                    <td
-                      className={scss.colors}
-                      onClick={() => handleTask(project.id)}
-                    >
-                      {project.projectName}
-                    </td>
-                    <td>{project.categoryName}</td>
-                    <td>{project.creator.name}</td>
-                    <td>
-                      {project.members.map((member) => {
-                        return (
-                          <img key={member.userId} src={member.avatar}></img>
-                        );
-                      })}
-                      <button
-                        onClick={() => {
-                          showModal();
-                          handleClick4(project.id, user.accessToken);
-                          handleClick5(user.accessToken);
-                        }}
+              {projects
+                ?.map((project) => {
+                  return (
+                    <tr key={project.id}>
+                      {setValue("projectId", project.id)}
+                      <td>{project.id}</td>
+                      <td
+                        className={scss.colors}
+                        onClick={() => handleTask(project.id)}
                       >
-                        <PlusCircleOutlined />
-                      </button>
-                      <Modal
-                        title="Members"
-                        open={isModalOpen}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
-                      >
-                        <table className={scss.tables}>
-                          <thead>
-                            <tr>
-                              <th style={{ padding: "5px 40px" }}>Id</th>
-                              <th style={{ padding: "5px 40px" }}>Avatar</th>
-                              <th style={{ padding: "5px 40px" }}>Name</th>
-                              <th style={{ padding: "5px 40px" }}>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {tasks?.members?.map((member) => {
-                              // console.log(member);
-                              return (
-                                <tr key={member.userId}>
-                                  <td style={{ padding: "5px 40px" }}>
-                                    {member.userId}
-                                  </td>
-                                  <td style={{ padding: "5px 40px" }}>
-                                    <img src={member.avatar}></img>
-                                  </td>
-                                  <td style={{ padding: "5px 40px" }}>
-                                    {member.name}
-                                  </td>
-                                  <td style={{ padding: "5px 40px" }}>
-                                    <button
-                                      onClick={() =>
-                                        removeUser(project.id, member.userId)
-                                      }
-                                      className={scss.buttons}
-                                    >
-                                      <DeleteOutlined />
-                                    </button>
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                        <h4>Add User</h4>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <select
-                            className={scss.selects}
-                            onChange={handleChange}
-                          >
-                            <option value="">chọn user</option>
-                            {users.map((usera) => {
-                              return (
-                                <option key={usera.userId} value={usera.userId}>
-                                  {usera.name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          <button
-                            className={scss.buttons}
-                          >
-                            <PlusCircleOutlined />
-                          </button>
-                        </form>
-                      </Modal>
-                    </td>
-                    <td>
-                      <button onClick={() => UpdateProject(project.id)}>
-                        <EditOutlined />
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleDelete(project.id, user.accessToken)
-                        }
-                      >
-                        <DeleteOutlined />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        {project.projectName}
+                      </td>
+                      <td>{project.categoryName}</td>
+                      <td>{project.creator.name}</td>
+                      <td>
+                        {project.members.map((member) => {
+                          return (
+                            <img key={member.userId} src={member.avatar}></img>
+                          );
+                        })}
+
+                        <button
+                          onClick={() => {
+                            showModal();
+                            handleClick4(project.id, user.accessToken);
+                            handleClick5(user.accessToken);
+                          }}
+                        >
+                          <PlusCircleOutlined />
+                        </button>
+                      </td>
+                      <td>
+                        <button onClick={() => UpdateProject(project.id)}>
+                          <EditOutlined />
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleDelete(project.id, user.accessToken)
+                          }
+                        >
+                          <DeleteOutlined />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+                .reverse()}
             </tbody>
           </table>
         </Content>
