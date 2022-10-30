@@ -7,9 +7,10 @@ import {
   PlusCircleOutlined,
   ProfileOutlined,
   ReloadOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu } from "antd";
-import { Modal } from "antd";
+import { Layout, Menu } from "antd";
+import { Button, Modal, Space } from "antd";
 import React, { useState, useEffect } from "react";
 import scss from "./style.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
@@ -28,6 +29,7 @@ import { updateTasks } from "modules/List/slices/taskSlices";
 import { render } from "@testing-library/react";
 import { Alert } from "bootstrap";
 const { Header, Sider, Content } = Layout;
+const { confirm } = Modal;
 
 const ListProject = () => {
   const [open, setOpen, collapsed, setCollapsed] = useState(false);
@@ -79,6 +81,19 @@ const ListProject = () => {
 
   const UpdateTask = (taskId) => {
     navigate(`/task/updatetask/${taskId}`);
+  };
+
+  const showConfirm = (taskIds, acce, taskId) => {
+    confirm({
+      title: 'Do you Want to delete task ?',
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        handleDelete(taskIds, acce, taskId)
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   };
 
   const handleDelete = (taskIds, acce, taskId) => {
@@ -222,7 +237,7 @@ const ListProject = () => {
                                   <button
                                     className="btn btn-danger col-sm-4"
                                     onClick={() =>
-                                      handleDelete(
+                                      showConfirm(
                                         lstTask.taskId,
                                         user.accessToken,
                                         taskId

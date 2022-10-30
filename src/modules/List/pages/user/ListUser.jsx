@@ -5,6 +5,7 @@ import {
   VideoCameraOutlined,
   DeleteOutlined,
   PlusCircleOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState, useEffect } from "react";
@@ -19,30 +20,37 @@ import {
 import { Button, Modal } from "antd";
 
 const { Header, Sider, Content } = Layout;
+const { confirm } = Modal;
 
 const ListUser = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = (user) => {
-    localStorage.setItem("userId", JSON.stringify(user));
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("userId"));
-  const userIds = user.userId;
+  // const user = JSON.parse(localStorage.getItem("userId"));
+  // console.log(user);
+  // const userIds = user.userId;
   const userz = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
+
+  const showConfirm = (userIds) => {
+    console.log(userIds);
+    confirm({
+      title: 'Do you Want to delete user ?',
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        handleDelte(userIds)
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
   const handleDelte = (userIds) => {
     dispatch(deleteUser({ userId: userIds, acc: userz.accessToken }));
   };
@@ -53,7 +61,7 @@ const ListUser = () => {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         title="Có muốn xóa user ?"
         open={isModalOpen}
         onOk={handleOk}
@@ -61,15 +69,15 @@ const ListUser = () => {
       >
         <Button
           className="btn btn-danger "
-          onClick={() => (
-            handleDelte(userIds),
-            handleCancel(),
-            handleOk()
-            )}
+          // onClick={() => (
+          //   handleDelte(userIds),
+          //   handleCancel(),
+          //   handleOk()
+          //   )}
         >
           Có
         </Button>
-      </Modal>
+      </Modal> */}
       <div className="row">
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className={scss.logo} />
@@ -131,7 +139,7 @@ const ListUser = () => {
                         </button>
                         <Button
                           className="btn btn-danger"
-                          onClick={() => showModal(user)}
+                          onClick={() => showConfirm(user.userId)}
                         >
                           Delete
                         </Button>

@@ -4,7 +4,6 @@ const userAPI = {
     return axiosClientz.get("Users/getUser");
   },
   deleteUserApi: (userId, acces) => {
-    console.log(userId, acces);
     return axiosClientz.delete("Users/deleteUser", {
       headers: {
         Authorization: `Bearer ${acces}`,

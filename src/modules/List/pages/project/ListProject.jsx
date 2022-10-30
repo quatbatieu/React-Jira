@@ -5,9 +5,10 @@ import {
   VideoCameraOutlined,
   DeleteOutlined,
   PlusCircleOutlined,
+  ExclamationCircleOutlined 
 } from "@ant-design/icons";
 import { Layout, Menu, notification } from "antd";
-import { Modal } from "antd";
+import { Button, Modal, Space } from "antd";
 import React, { useState, useEffect } from "react";
 import scss from "./style.module.scss";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -24,6 +25,8 @@ import { removeUserz } from "modules/List/slices/projectSlices";
 import { logout } from "modules/Authentication/slices/authSlice";
 
 const { Header, Sider, Content } = Layout;
+const { confirm } = Modal;
+
 
 const ListProject = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -48,10 +51,24 @@ const ListProject = () => {
       userId: "",
     },
   });
+  
+  const showConfirm = (projectId, acces) => {
+    confirm({
+      title: 'Do you Want to delete project ?',
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        handleDelete(projectId, acces)
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
 
   const handleDelete = (projectId, acces) => {
     dispatch(deleteProject({ projectId, acces }));
   };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -125,7 +142,6 @@ const ListProject = () => {
     dispatch(removeUserz({ values: { projectId, userId }, acces }));
   };
 
-  const handleClick6 = () => {};
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -281,9 +297,10 @@ const ListProject = () => {
                           <EditOutlined />
                         </button>
                         <button
-                          onClick={() =>
-                            handleDelete(project.id, user.accessToken)
-                          }
+                        onClick={() =>showConfirm(project.id, user.accessToken)}
+                          // onClick={() =>
+                          //   handleDelete(project.id, user.accessToken)
+                          // }
                         >
                           <DeleteOutlined />
                         </button>
