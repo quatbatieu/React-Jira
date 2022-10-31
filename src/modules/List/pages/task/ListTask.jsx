@@ -28,7 +28,7 @@ import { removeTaskz } from "modules/List/slices/taskSlices";
 import { updateTasks } from "modules/List/slices/taskSlices";
 import { render } from "@testing-library/react";
 import { Alert } from "bootstrap";
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const { confirm } = Modal;
 
 const ListProject = () => {
@@ -59,9 +59,9 @@ const ListProject = () => {
     },
   });
 
-  const showModalb = (a) => {
-    dispatch(getAllComment(a));
-    setValue("taskId", a);
+  const showModalb = (commentId) => {
+    dispatch(getAllComment(commentId));
+    setValue("taskId", commentId);
     setOpen(true);
   };
 
@@ -85,13 +85,13 @@ const ListProject = () => {
 
   const showConfirm = (taskIds, acce, taskId) => {
     confirm({
-      title: 'Do you Want to delete task ?',
+      title: "Do you Want to delete task ?",
       icon: <ExclamationCircleOutlined />,
       onOk() {
-        handleDelete(taskIds, acce, taskId)
+        handleDelete(taskIds, acce, taskId);
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   };
@@ -134,11 +134,11 @@ const ListProject = () => {
     setValue("id", comment.id);
   };
 
-  const handleClick2 = () =>{
-    navigate("/")
-  }
+  const handleClick2 = () => {
+    navigate("/");
+  };
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={scss.logo} />
         <div className={scss.iho} onClick={() => handleClick2()}>
@@ -161,20 +161,13 @@ const ListProject = () => {
         >
           <h1 style={{ padding: "0 0 0 50px" }}>Task Management</h1>
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: "100%",
-          }}
-        >
+        <Content className="site-layout-background">
           <div className="container pb-3">
             <div className="row">
               {tasks?.lstTask?.map((task) => {
                 return (
                   <div key={task.statusId} className="col-3 ">
-                    <div className="bg-dark text-white  ">
+                    <div className="bg-dark text-white p-1 rounded-3  ">
                       <p className="ms-1">{task.statusName}</p>
 
                       <div>
@@ -182,7 +175,7 @@ const ListProject = () => {
                           return (
                             <div
                               style={{ borderRadius: "10px" }}
-                              className="row bg-white ms-0 me-0 pb-3  mb-3"
+                              className="row bg-white ms-0 me-0 pb-3   mb-3"
                             >
                               <div
                                 className="col-sm-12 pe-1  "
@@ -205,7 +198,7 @@ const ListProject = () => {
                                   <div className="col-sm-12 mt-3 row">
                                     {lstTask.assigness.map((assignes) => {
                                       return (
-                                        <div className="col-sm-4">
+                                        <div className="col-sm-2">
                                           <img
                                             className={scss.img}
                                             src={assignes.avatar}
@@ -332,6 +325,13 @@ const ListProject = () => {
             </Modal>
           </div>
         </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );

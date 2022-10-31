@@ -33,6 +33,11 @@ const CreateTask = () => {
     dispatch(getAll());
     dispatch(getAllpri(taskId));
     dispatch(getAlltas());
+    document.body.style.background =
+      "linear-gradient(120deg, #2980b9, #8e44ad)";
+    return () => {
+      document.body.style.background = null;
+    };
   }, []);
 
   const {
@@ -85,6 +90,7 @@ const CreateTask = () => {
       notification.success({
         message: "tạo task thành công",
       });
+      document.body.style.backgroundColor = null;
     } catch (error) {
       notification.error({
         message: "tạo task thất bại",
@@ -92,213 +98,203 @@ const CreateTask = () => {
       });
     }
   };
-  function setInput(){
-    setValue("statusId",10)
-    setValue("priorityId",11)
-    setValue("typeId",12)
-  }
+
   return (
-    <div className={scss.title}>
-    <div className="col-6 p-5 m-auto bg-white rounded-3">
-      <h1 className="text-center">Create Task</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="">
-          <h6>Task Name</h6>
-          <input
-            className="rounded-3"
-            type="text"
-            style={{ width: "100%", padding: "3px 10px" }}
-            {...register("taskName",{
-              required:{
-                value:true,
-                message:"không được để trống"
-              }
-            })}
-            
-          />
-           {errors.taskName && (
-                <p style={{ color: "red" }}>
-                  {errors.taskName.message}
-                </p>
-              )}
-        </div>
-
-        <div className="row mt-3">
-          <div className="col-6">
-            <h6>Status</h6>
-            <select             
-              className="rounded-3 "
-              style={{ display: "block", padding: "3px 10px"  }}
-              onChange={handleChange1}
-              {...register("statusId", {
-                required: {
-                  value: true,
-                  message: "không được để trống",
-                },
-              })}
-            >
-              <option value={10}>chọn status</option>
-              {getall?.map((get) => {
-                return (
-                  <option key={get.statusId} value={get.statusId}>
-                    {get.statusName}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.statusId && (
-              <p style={{ color: "red" }}>{errors.statusId.message}</p>
-            )}
-          </div>
-          <div className="col-3">
-            <h6>Priority</h6>
-            <select
-              className="rounded-3 p-1"
-              style={{ display: "block", padding: "3px 10px"  }}
-              onChange={handleChange2}
-              {...register("priorityId", {
-                required: {
-                  value: true,
-                  message: "không được để trống",
-                },
-              })}
-            >
-              <option value={11}>chọn priority</option>
-              {getallpri?.map((getpri) => {
-                return (
-                  <option key={getpri.priorityId} value={getpri.priorityId}>
-                    {getpri.priority}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="col-3 ">
-            <h6>Task Type</h6>
-            <select
-              className="rounded-3 p-1  "
-              style={{ display: "block", padding: "3px 10px"  }}
-              onChange={handleChange3}
-              {...register("typeId", {
-                required: {
-                  value: true,
-                  message: "không được để trống",
-                },
-              })}
-            >
-              <option value={12}>chọn typeId</option>
-              {getalltas?.map((gettas) => {
-                return (
-                  <option key={gettas.id} value={gettas.id}>
-                    {gettas.taskType}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
-
-        <div className="mt-3">  
-          <h6>Assignees</h6>
-          <Select
-              mode="tags"
-              style={{
-                width: "100%",
-              }}
-              placeholder="add user"
-              onChange={handleChange4}
-            >
-              {tasks?.members?.map((task) => {
-                return <Option key={task.userId}>{task.name}</Option>;
-              })}
-            </Select>
-         
-        </div>
-
-        <div className="mt-3">
-          <div className="row">
-            <div className="col-4">
-              <h6>Original Estimete</h6>
+    <div className={scss.bg}>
+      <div className={scss.title}>
+        <div className="col-6 p-5 m-auto bg-white rounded-3">
+          <h1 className="text-center">Create Task</h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="">
+              <h6>Task Name</h6>
               <input
-              className="rounded-3 "
-              style={{ display: "block"  }}
+                className="rounded-3"
                 type="text"
-                {...register("originalEstimate", {
+                style={{ width: "100%", padding: "3px 10px" }}
+                {...register("taskName", {
                   required: {
                     value: true,
                     message: "không được để trống",
                   },
                 })}
               />
-              {errors.originalEstimate && (
-                <p style={{ color: "red" }}>
-                  {errors.originalEstimate.message}
-                </p>
+              {errors.taskName && (
+                <p style={{ color: "red" }}>{errors.taskName.message}</p>
               )}
             </div>
-            <div className="col-4">
-              <h6>Time Spent</h6>
-              <input
-               className="rounded-3 "
-               style={{ display: "block",  }}
-                type="text"
-                {...register("timeTrackingSpent", {
+
+            <div className="row mt-3">
+              <div className="col-6">
+                <h6>Status</h6>
+                <select
+                  className="rounded-3 "
+                  style={{ display: "block", padding: "3px 10px" }}
+                  onChange={handleChange1}
+                  {...register("statusId", {
+                    validate: (value) => value !== "",
+                  })}
+                >
+                  <option value="">chọn status</option>
+                  {getall?.map((get) => {
+                    return (
+                      <option key={get.statusId} value={get.statusId}>
+                        {get.statusName}
+                      </option>
+                    );
+                  })}
+                </select>
+                {errors.statusId?.type === "validate" && (
+                  <p style={{ color: "red" }}>vui lòng chọn lại</p>
+                )}
+              </div>
+              <div className="col-3">
+                <h6>Priority</h6>
+                <select
+                  className="rounded-3 p-1"
+                  style={{ display: "block", padding: "3px 10px" }}
+                  onChange={handleChange2}
+                  {...register("priorityId", {
+                    validate: (value) => value !== "",
+                  })}
+                >
+                  <option value="">chọn priority</option>
+                  {getallpri?.map((getpri) => {
+                    return (
+                      <option key={getpri.priorityId} value={getpri.priorityId}>
+                        {getpri.priority}
+                      </option>
+                    );
+                  })}
+                </select>
+                {errors.priorityId?.type === "validate" && (
+                  <p style={{ color: "red" }}>vui lòng chọn lại</p>
+                )}
+              </div>
+              <div className="col-3 ">
+                <h6>Task Type</h6>
+                <select
+                  className="rounded-3 p-1  "
+                  style={{ display: "block", padding: "3px 10px" }}
+                  onChange={handleChange3}
+                  {...register("typeId", {
+                    validate: (value) => value !== "",
+                  })}
+                >
+                  <option value="">chọn typeId</option>
+                  {getalltas?.map((gettas) => {
+                    return (
+                      <option key={gettas.id} value={gettas.id}>
+                        {gettas.taskType}
+                      </option>
+                    );
+                  })}
+                </select>
+                {errors.typeId?.type === "validate" && (
+                  <p style={{ color: "red" }}>vui lòng chọn lại</p>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-3">
+              <h6>Assignees</h6>
+              <Select
+                mode="tags"
+                style={{
+                  width: "100%",
+                }}
+                placeholder="add user"
+                onChange={handleChange4}
+              >
+                {tasks?.members?.map((task) => {
+                  return <Option key={task.userId}>{task.name}</Option>;
+                })}
+              </Select>
+            </div>
+
+            <div className="mt-3">
+              <div className="row">
+                <div className="col-4">
+                  <h6>Original Estimete</h6>
+                  <input
+                    className="rounded-3 "
+                    style={{ display: "block" }}
+                    type="text"
+                    {...register("originalEstimate", {
+                      required: {
+                        value: true,
+                        message: "không được để trống",
+                      },
+                    })}
+                  />
+                  {errors.originalEstimate && (
+                    <p style={{ color: "red" }}>
+                      {errors.originalEstimate.message}
+                    </p>
+                  )}
+                </div>
+                <div className="col-4">
+                  <h6>Time Spent</h6>
+                  <input
+                    className="rounded-3 "
+                    style={{ display: "block" }}
+                    type="text"
+                    {...register("timeTrackingSpent", {
+                      required: {
+                        value: true,
+                        message: "không được để trống",
+                      },
+                    })}
+                  />
+                  {errors.timeTrackingSpent && (
+                    <p style={{ color: "red" }}>
+                      {errors.timeTrackingSpent.message}
+                    </p>
+                  )}
+                </div>
+                <div className="col-4">
+                  <h6>Time remaining</h6>
+                  <input
+                    className="rounded-3 "
+                    style={{ display: "block" }}
+                    type="text"
+                    {...register("timeTrackingRemaining", {
+                      required: {
+                        value: true,
+                        message: "không được để trống",
+                      },
+                    })}
+                  />
+                  {errors.timeTrackingRemaining && (
+                    <p style={{ color: "red" }}>
+                      {errors.timeTrackingRemaining.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="mt-3">
+              <h6>Decription</h6>
+              <textarea
+                className="rounded-3"
+                rows={5}
+                cols={50}
+                style={{ width: "100%", padding: "3px 10px" }}
+                {...register("description", {
                   required: {
                     value: true,
                     message: "không được để trống",
                   },
                 })}
               />
-              {errors.timeTrackingSpent && (
-                <p style={{ color: "red" }}>
-                  {errors.timeTrackingSpent.message}
-                </p>
+              {errors.description && (
+                <p style={{ color: "red" }}>{errors.description.message}</p>
               )}
             </div>
-            <div className="col-4">
-              <h6>Time remaining</h6>
-              <input
-               className="rounded-3 "
-               style={{ display: "block",   }}
-                type="text"
-                {...register("timeTrackingRemaining", {
-                  required: {
-                    value: true,
-                    message: "không được để trống",
-                  },
-                })}
-              />
-              {errors.timeTrackingRemaining && (
-                <p style={{ color: "red" }}>
-                  {errors.timeTrackingRemaining.message}
-                </p>
-              )}
-            </div>
-          </div>
+            <button className="btn btn-success mt-3">Submit</button>
+          </form>
         </div>
-        <div className="mt-3">
-          <h6>Decription</h6>
-          <textarea
-          className="rounded-3"
-            rows={5}
-            cols={50}
-            style={{ width: "100%", padding: "3px 10px" }}
-            {...register("description", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
-            })}
-          />
-          {errors.description && (
-            <p style={{ color: "red" }}>{errors.description.message}</p>
-          )}
-        </div>
-        <button className="btn btn-success mt-3">Submit</button>
-      </form>
-      {setInput()}
+      </div>
     </div>
-  </div>
   );
 };
 

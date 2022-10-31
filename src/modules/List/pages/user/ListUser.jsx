@@ -19,7 +19,7 @@ import {
 } from "modules/List/slices/userSlices";
 import { Button, Modal } from "antd";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const { confirm } = Modal;
 
 const ListUser = () => {
@@ -28,9 +28,6 @@ const ListUser = () => {
 
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // const user = JSON.parse(localStorage.getItem("userId"));
-  // console.log(user);
-  // const userIds = user.userId;
   const userz = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -40,13 +37,13 @@ const ListUser = () => {
   const showConfirm = (userIds) => {
     console.log(userIds);
     confirm({
-      title: 'Do you Want to delete user ?',
+      title: "Do you Want to delete user ?",
       icon: <ExclamationCircleOutlined />,
       onOk() {
-        handleDelte(userIds)
+        handleDelte(userIds);
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   };
@@ -60,52 +57,62 @@ const ListUser = () => {
   };
 
   return (
-    <>
-      {/* <Modal
-        title="Có muốn xóa user ?"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
-        <Button
-          className="btn btn-danger "
-          // onClick={() => (
-          //   handleDelte(userIds),
-          //   handleCancel(),
-          //   handleOk()
-          //   )}
+        <div className="logo" />
+        <h1 className="text-white text-center">JIRA</h1>
+        <Menu
+          theme="dark"
+          mode="inline"
+        />
+        <div className={scss.logo} />
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+          className={scss.iho}
         >
-          Có
-        </Button>
-      </Modal> */}
-      <div className="row">
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={scss.logo} />
-          <div
-            onClick={() => {
-              navigate("/");
-            }}
-            className={scss.iho}
-          >
-            <UserOutlined className={scss.icon} />
-            <a className=" text-decoration-none text-white ">Projet List</a>
-          </div>
-          <div
-            className={scss.iho}
-            onClick={() => {
-              navigate("/CreateUser");
-            }}
-          >
-            <VideoCameraOutlined className={scss.icon} />
-            <a className="text-decoration-none text-white">Create user</a>
-          </div>
-          <div className={scss.iho}>
-            <UploadOutlined className={scss.icon} />
-            <a className="text-decoration-none text-white">User List</a>
-          </div>
-        </Sider>
-        <div className="col-sm-10">
-          <h1 className="text-center"> USERS LIST</h1>
+          <UserOutlined className={scss.icon} />
+          <a className=" text-decoration-none text-white ">Projet List</a>
+        </div>
+        <div
+          className={scss.iho}
+          onClick={() => {
+            navigate("/CreateUser");
+          }}
+        >
+          <VideoCameraOutlined className={scss.icon} />
+          <a className="text-decoration-none text-white">Create user</a>
+        </div>
+        <div className={scss.iho}>
+          <UploadOutlined className={scss.icon} />
+          <a className="text-decoration-none text-white">User List</a>
+        </div>
+      </Sider>
+      <Layout>
+        <Header style={{ background: "white", padding: "0px",textAlign:"center" }}>
+          <h1>USER LIST</h1>
+        </Header>
+
+        <Content
+          style={{
+            margin: "24px 16px 0",
+            background: "white",
+          }}
+        >
           <table className="table table-striped">
             <thead>
               <tr>
@@ -150,9 +157,16 @@ const ListUser = () => {
                 .reverse()}
             </tbody>
           </table>
-        </div>
-      </div>
-    </>
+        </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
   );
 };
 

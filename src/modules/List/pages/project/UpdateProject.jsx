@@ -57,6 +57,7 @@ const UpdateProject = () => {
   };
 
   const onSubmit = async (values) => {
+    console.log(values);
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const acce = user.accessToken;
@@ -115,14 +116,7 @@ const UpdateProject = () => {
             <select
               style={{ display: "block" }}
               onChange={handleChange}
-              {...register("categoryId", {
-                required: {
-                  value: true,
-                  message: "Chọn dự án",
-                },
-              })}
             >
-              <option>chọn dự án</option>
               {aliass?.map((alia) => {
                 return (
                   <option key={alia.id} value={alia.id}>
@@ -131,9 +125,6 @@ const UpdateProject = () => {
                 );
               })}
             </select>
-            {errors.categoryId && (
-              <p style={{ color: "red" }}>{errors.categoryId.message}</p>
-            )}
           </div>
           <button>Update Project</button>
         </form>

@@ -32,8 +32,8 @@ const CreateTask = () => {
     listMemberz,
   } = useSelector((state) => state.task);
 
-  const b = task1?.assigness;
-  const [listMember, setList] = useState(b);
+  const listUser = task1?.assigness;
+  const [listMember, setList] = useState(listUser);
   const lisZz2 = listMember?.map((item) => {
     return `${item.id}`;
   });
@@ -48,11 +48,16 @@ const CreateTask = () => {
     dispatch(getAll());
     dispatch(getAllpri(taskId));
     dispatch(getAlltas());
+    document.body.style.background =
+      "linear-gradient(120deg, #2980b9, #8e44ad)";
+    return () => {
+      document.body.style.background = null;
+    };
   }, []);
 
   useEffect(() => {
-    setList(b);
-  }, [b]);
+    setList(listUser);
+  }, [listUser]);
 
   const {
     register,
@@ -95,7 +100,6 @@ const CreateTask = () => {
     setValue("listUserAsign", lisZz2);
   };
   const handleChange4 = (evt) => {
-
     setValue("listUserAsign", lisZz2.concat(evt));
   };
   const handleChange1 = (evt) => {
@@ -152,12 +156,7 @@ const CreateTask = () => {
                 className="rounded-3 "
                 style={{ display: "block", padding: "3px 10px" }}
                 onChange={handleChange1}
-                {...register("statusId", {
-                  required: {
-                    value: true,
-                    message: "không được để trống",
-                  },
-                })}
+                {...register("statusId")}
               >
                 <option>chọn status</option>
                 {getall?.map((get) => {
@@ -168,9 +167,6 @@ const CreateTask = () => {
                   );
                 })}
               </select>
-              {errors.statusId && (
-                <p style={{ color: "red" }}>{errors.statusId.message}</p>
-              )}
             </div>
             <div className="col-3">
               <h6>Priority</h6>
@@ -178,12 +174,7 @@ const CreateTask = () => {
                 className="rounded-3 p-1"
                 style={{ display: "block", padding: "3px 10px" }}
                 onChange={handleChange2}
-                {...register("priorityId", {
-                  required: {
-                    value: true,
-                    message: "không được để trống",
-                  },
-                })}
+                {...register("priorityId")}
               >
                 <option>chọn priority</option>
                 {getallpri?.map((getpri) => {
@@ -201,12 +192,7 @@ const CreateTask = () => {
                 className="rounded-3 p-1  "
                 style={{ display: "block", padding: "3px 10px" }}
                 onChange={handleChange3}
-                {...register("typeId", {
-                  required: {
-                    value: true,
-                    message: "không được để trống",
-                  },
-                })}
+                {...register("typeId")}
               >
                 <option>chọn typeId</option>
                 {getalltas?.map((gettas) => {
@@ -224,6 +210,7 @@ const CreateTask = () => {
             <h6>Assignees :</h6>
             <div className="row mt-1  ">
               {listMember?.map((item) => {
+                console.log(item);
                 return (
                   <div key={item.id} className="col-sm-3 pe-none   ">
                     <div
@@ -233,9 +220,14 @@ const CreateTask = () => {
                       }}
                       className="btn bg-dark text-white w-100"
                     >
-                      <span className="me-1">{item.name}</span>
+                      <span
+                        style={{ wordWrap: "break-word" }}
+                        className="me-1 col-sm-8"
+                      >
+                        {item.name}
+                      </span>
                       <button
-                        className={scss.X}
+                        className={`${scss.X} col-sm-4`}
                         onClick={(evt) => deleteMember(evt, item.id)}
                       >
                         X
@@ -252,7 +244,7 @@ const CreateTask = () => {
               }}
               className="bg-white mt-3 border-0 text-success fw-bolder"
             >
-              Add More +{" "}
+              Add More +
             </button>
             {selEct ? (
               <Select

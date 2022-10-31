@@ -76,7 +76,6 @@ export const getAlltas = createAsyncThunk(
 export const removeTaskz = createAsyncThunk(
   "task/removetask",
   async (title, { rejectWithValue, dispatch }) => {
-    console.log(title);
     try {
       const data = await taskAPI.removeTask(title.taskIds, title.acce);
       dispatch(getProjectDetails({ taskId: title.taskId, acces: title.acce }));
@@ -140,7 +139,6 @@ export const insertComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   "task/deleteComment",
   async (title, { rejectWithValue,dispatch }) => {
-console.log(title);
     try {
       const data = await taskAPI.deleteComment(title.commentId, title.acces);
       dispatch(getAllComment(title.taskId))

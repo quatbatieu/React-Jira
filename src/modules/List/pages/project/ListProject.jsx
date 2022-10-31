@@ -5,7 +5,7 @@ import {
   VideoCameraOutlined,
   DeleteOutlined,
   PlusCircleOutlined,
-  ExclamationCircleOutlined 
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, notification } from "antd";
 import { Button, Modal, Space } from "antd";
@@ -24,9 +24,9 @@ import { getProjectDetails } from "modules/List/slices/taskSlices";
 import { removeUserz } from "modules/List/slices/projectSlices";
 import { logout } from "modules/Authentication/slices/authSlice";
 
-const { Header, Sider, Content } = Layout;
-const { confirm } = Modal;
+const { Header, Sider, Content, Footer } = Layout;
 
+const { confirm } = Modal;
 
 const ListProject = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -51,16 +51,16 @@ const ListProject = () => {
       userId: "",
     },
   });
-  
+
   const showConfirm = (projectId, acces) => {
     confirm({
-      title: 'Do you Want to delete project ?',
+      title: "Do you Want to delete project ?",
       icon: <ExclamationCircleOutlined />,
       onOk() {
-        handleDelete(projectId, acces)
+        handleDelete(projectId, acces);
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   };
@@ -122,7 +122,6 @@ const ListProject = () => {
   const onSubmit = async (values) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const acces = user.accessToken;
-    console.log(values);
     try {
       await dispatch(assignUserProject({ values, acces })).unwrap();
       dispatch(getProjectDetails());
@@ -146,7 +145,11 @@ const ListProject = () => {
     return <Navigate to="/login" />;
   }
   return (
-    <Layout>
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
       <Modal
         title="Members"
         open={isModalOpen}
@@ -202,7 +205,23 @@ const ListProject = () => {
           </button>
         </form>
       </Modal>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
+        <div className="logo" />
+        <h1 className="text-white text-center">JIRA</h1>
+        <Menu
+          // className="mt-5"
+          theme="dark"
+          mode="inline"
+        />
         <div className={scss.logo} />
         <div className={scss.iho} onClick={() => handleClick1()}>
           <UserOutlined className={scss.icon} />
@@ -217,15 +236,8 @@ const ListProject = () => {
           <a style={{ color: "white" }}>User List</a>
         </div>
       </Sider>
-      <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-          style={{
-            padding: 0,
-            background: "#fff",
-            fontSize: 20,
-          }}
-        >
+      <Layout>
+        <Header style={{ background: "white", padding: "0px" }}>
           <h1 style={{ padding: "0 0 0 50px" }}>Project Management</h1>
           {user ? (
             <div className={scss.head}>
@@ -241,77 +253,90 @@ const ListProject = () => {
             </div>
           ) : null}
         </Header>
+
         <Content
-          className="site-layout-background"
           style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: "100%",
+            margin: "24px 16px 0",
+            background: "white",
           }}
         >
-          <table className={scss.table}>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Project Name</th>
-                <th>Calegory</th>
-                <th>Creator</th>
-                <th>Members</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects
-                ?.map((project) => {
-                  return (
-                    <tr key={project.id}>
-                      {setValue("projectId", project.id)}
-                      <td>{project.id}</td>
-                      <td
-                        className={scss.colors}
-                        onClick={() => handleTask(project.id)}
-                      >
-                        {project.projectName}
-                      </td>
-                      <td>{project.categoryName}</td>
-                      <td>{project.creator.name}</td>
-                      <td>
-                        {project.members.map((member) => {
-                          return (
-                            <img key={member.userId} src={member.avatar}></img>
-                          );
-                        })}
+          <div>
+            <table className={scss.table}>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Project Name</th>
+                  <th>Calegory</th>
+                  <th>Creator</th>
+                  <th>Members</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {projects
+                  ?.map((project) => {
+                    return (
+                      <tr key={project.id}>
+                        {setValue("projectId", project.id)}
+                        <td>{project.id}</td>
+                        <td
+                          className={scss.colors}
+                          onClick={() => handleTask(project.id)}
+                          style={{ wordWrap: "break-word" }}
+                        >
+                          <span style={{ wordWrap: "break-word" }}>
+                            {project.projectName}
+                          </span>
+                        </td>
+                        <td>{project.categoryName}</td>
+                        <td>{project.creator.name}</td>
+                        <td>
+                          {project.members.map((member) => {
+                            return (
+                              <img
+                                key={member.userId}
+                                src={member.avatar}
+                              ></img>
+                            );
+                          })}
 
-                        <button
-                          onClick={() => {
-                            showModal();
-                            handleClick4(project.id, user.accessToken);
-                            handleClick5(user.accessToken);
-                          }}
-                        >
-                          <PlusCircleOutlined />
-                        </button>
-                      </td>
-                      <td>
-                        <button onClick={() => UpdateProject(project.id)}>
-                          <EditOutlined />
-                        </button>
-                        <button
-                        onClick={() =>showConfirm(project.id, user.accessToken)}
-                          // onClick={() =>
-                          //   handleDelete(project.id, user.accessToken)
-                          // }
-                        >
-                          <DeleteOutlined />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-                .reverse()}
-            </tbody>
-          </table>
+                          <button
+                            onClick={() => {
+                              showModal();
+                              handleClick4(project.id, user.accessToken);
+                              handleClick5(user.accessToken);
+                            }}
+                          >
+                            <PlusCircleOutlined />
+                          </button>
+                        </td>
+                        <td>
+                          <button onClick={() => UpdateProject(project.id)}>
+                            <EditOutlined />
+                          </button>
+                          <button
+                            onClick={() =>
+                              showConfirm(project.id, user.accessToken)
+                            }
+                          >
+                            <DeleteOutlined />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                  .reverse()}
+              </tbody>
+            </table>
+          </div>
         </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );

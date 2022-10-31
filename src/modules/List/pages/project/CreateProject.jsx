@@ -64,16 +64,17 @@ const CreateProject = () => {
             <input
               type="text"
               {...register("projectName", {
-                required: {
-                  value: true,
-                  message: "không được để trống",
-                },
+                required:true,
+                maxLength: 25,
               })}
             />
             <span></span>
             <label>Name</label>
-            {errors.projectName && (
-              <p style={{ color: "red" }}>{errors.projectName.message}</p>
+            {errors.projectName?.type === "required" && (
+              <p style={{ color: "red" }}>không được để trống</p>
+            )}
+            {errors.projectName?.type === "maxLength" && (
+              <p style={{ color: "red" }}>không vượt quá 25 kí tự</p>
             )}
           </div>
           <div>
@@ -97,13 +98,10 @@ const CreateProject = () => {
             style={{ display: "block" }}
             onChange={handleChange}
             {...register("categoryId", {
-              required: {
-                value: true,
-                message: "không được để trống",
-              },
+              validate: value => value !== ""
             })}
           >
-            <option>chọn dự án</option>
+            <option value="">chọn dự án</option>
             {aliass?.map((alia) => {
               return (
                 <option key={alia.id} value={alia.id}>
@@ -112,8 +110,8 @@ const CreateProject = () => {
               );
             })}
           </select>
-          {errors.categoryId && (
-            <p style={{ color: "red" }}>{errors.categoryId.message}</p>
+          {errors.categoryId?.type === "validate" && (
+            <p style={{ color: "red" }}>vui lòng chọn lại</p>
           )}
           <button>Create Project</button>
         </form>
