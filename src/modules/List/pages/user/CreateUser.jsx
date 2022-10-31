@@ -61,7 +61,7 @@ const CreateUser = () => {
             />
             <span></span>
             <label>email</label>
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
           </div>
           <div className={scss.field}>
             <input
@@ -75,7 +75,7 @@ const CreateUser = () => {
             />
             <span></span>
             <label>passWord</label>
-            {errors.passWord && <p>{errors.passWord.message}</p>}
+            {errors.passWord && <p style={{ color: "red" }}>{errors.passWord.message}</p>}
           </div>
           <div className={scss.field}>
             <input
@@ -89,7 +89,7 @@ const CreateUser = () => {
             />
             <span></span>
             <label>name</label>
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
           </div>
           <div className={scss.field}>
             <input
@@ -103,7 +103,7 @@ const CreateUser = () => {
             />
             <span></span>
             <label>phoneNumber</label>
-            {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+            {errors.phoneNumber && <p style={{ color: "red" }}>{errors.phoneNumber.message}</p>}
           </div>
 
           <button>Create user</button>
