@@ -219,14 +219,9 @@ const taskSlices = createSlice({
 
     builder.addCase(getTaskDetail.pending, (state) => {
       state.isLoading = true;
-      state.listMember=[]
-      state.updatetask = [];
     });
     builder.addCase(getTaskDetail.fulfilled, (state, { payload }) => {
       state.updatetask = payload;
-            state.listMemberz= payload.assigness.map((item)=>{
-        return `${item.id}`
-      }); 
       state.isLoading = false;
     });
     builder.addCase(getTaskDetail.rejected, (state, { payload }) => {

@@ -284,9 +284,10 @@ const ListProject = () => {
                           onClick={() => handleTask(project.id)}
                           style={{ wordWrap: "break-word" }}
                         >
-                          <span style={{ wordWrap: "break-word" }}>
-                            {project.projectName}
+                          <span>
+                            {project.projectName.slice(0,35)}
                           </span>
+                          <p className="mb-0">{project.projectName.slice(35)}</p>
                         </td>
                         <td>{project.categoryName}</td>
                         <td>{project.creator.name}</td>

@@ -1,13 +1,13 @@
-import axiosClient from "./axiosClient";
+import axiosClientz from "./axiosClientz";
 
 const AuthAPI = {
   registers: (values) => {
-    return axiosClient.post("Users/signup", {
+    return axiosClientz.post("Users/signup", {
       ...values,
     });
   },
   login: (values) =>{
-    return axiosClient.post("Users/signin", values)
+    return axiosClientz.post("Users/signin", values)
   }
 };
 
