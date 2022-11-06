@@ -4,3 +4,9 @@
     background-position: center;
     background-size: cover;
 }
+
+@media all and (max-width: 768px) {
+    .img{
+        background: #2980b9;
+    }
+}

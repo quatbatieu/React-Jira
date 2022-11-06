@@ -10,7 +10,7 @@ const AuthLayout = () => {
         <div className={scss.img}>
         </div>
       </Col>
-      <Col span={12}>
+      <Col span={12} className={scss.hi}>
         <Outlet />
       </Col>
     </Row>

@@ -1,8 +1,7 @@
-body{
+.title {
   padding: 0;
   margin: 0;
-  font-family: montserrat;
-  background: linear-gradient(120deg, #2980b9, #8e44ad);
+  background: #2980b9;
   height: 100vh;
 }
 .center {
@@ -77,16 +76,16 @@ body{
   }
 }
 @media all and (max-width: 992px) {
-  .center{
-    .menu{
-      .names{
-        h1{
+  .center {
+    .menu {
+      .names {
+        h1 {
           font-size: 35px;
         }
       }
-      ul{
-        li{
-          span{
+      ul {
+        li {
+          span {
             display: none;
           }
         }
@@ -95,16 +94,16 @@ body{
   }
 }
 @media all and (max-width: 768px) {
-  .center{
-    .menu{
-      .names{
-        h1{
+  .center {
+    .menu {
+      .names {
+        h1 {
           font-size: 30px;
         }
       }
-      ul{
-        li{
-          span{
+      ul {
+        li {
+          span {
             display: none;
           }
         }
@@ -113,17 +112,20 @@ body{
   }
 }
 @media all and (max-width: 576px) {
-  .center{
-    .menu{
-      .names{
-        h1{
-          font-size: 25px;
+  .title {
+    width: 140%;
+    .center {
+      .menu {
+        .names {
+          h1 {
+            font-size: 25px;
+          }
         }
-      }
-      ul{
-        li{
-          span{
-            display: none;
+        ul {
+          li {
+            span {
+              display: none;
+            }
           }
         }
       }

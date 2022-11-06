@@ -1,12 +1,8 @@
- body{
-  padding: 0;
-  margin: 0;
-  font-family: montserrat;
+.title {
+  height: 100vh;
+  background: #2980b9;
 }
 .center {
-  height: 100vh;
-  background: linear-gradient(120deg, #2980b9, #8e44ad);
-  // position: relative;
   h1 {
     text-align: center;
     padding: 0 0 20px 0;
@@ -45,13 +41,76 @@
         border-color: #2691b9;
         transition: 0.5s;
       }
-      a{
+      a {
         font-size: 20px;
         margin-left: 70px;
         color: white;
       }
-      a:hover{
+      a:hover {
         text-decoration: underline;
+      }
+    }
+  }
+}
+@media all and (max-width: 1280px) {
+  .title {
+    width: 130%;
+    .center {
+      h1 {
+        font-size: 25px;
+      }
+      .styless {
+        a {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 992px) {
+  .title {
+    width: 130%;
+    .center {
+      h1 {
+        font-size: 25px;
+      }
+      .styless {
+        a {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 768px) {
+  .title {
+    width: 130%;
+    .center {
+      h1 {
+        font-size: 25px;
+      }
+      .styless {
+        a {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 576px) {
+  .title {
+    width: 130%;
+    .center {
+      h1 {
+        font-size: 25px;
+      }
+      Button{
+        display: block;
+      }
+      .styless {
+        a {
+          margin-left: 90px;
+        }
       }
     }
   }
